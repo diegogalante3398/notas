@@ -9,13 +9,11 @@ class ListaDeNotas extends Component {
             <ul className="lista-notas">
                 {
                     /* Adicionando "Array of" para repetição dos elemento "li" */
-                    
-                    Array.of("Trabalho", "Trabalho", "Estudo")
-                        .map((categoria, index) => {
+                    this.props.listarNota
+                        .map((nota, index) => {
                             return (
                                 <li className="lista-notas_item" key={index}>
-                                    <div>{categoria}</div>
-                                    <CardNota />
+                                    <CardNota tituloNota={nota.titulo} textoNota={nota.texto}/>
                                 </li>
                             );
                         })
