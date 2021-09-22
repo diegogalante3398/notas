@@ -3,7 +3,7 @@ import "./style.css";
 
 class CardNota extends Component {
 
-    apagar(){
+    apagar() {
         const indice = this.props.index;
         this.props.deletarNota(indice);
     }
@@ -11,6 +11,7 @@ class CardNota extends Component {
     render() {
         return (
             <section className="card-nota">
+                <p className="card-nota_texto">{this.props.categoriaNota}</p>
                 <header className="card-nota_cabecalho">
                     <h3 className="card-nota_titulo">{this.props.tituloNota}</h3>
                     <i

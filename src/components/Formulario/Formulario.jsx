@@ -3,34 +3,52 @@ import { Component } from "react";
 import "./style.css"
 
 class Formulario extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
+
+        this.categoria = "";
         this.titulo = "";
         this.texto = "";
     }
 
-    _handleMudarTitulo(evento){
+    _handleMudarCategoria(evento) {
+        evento.stopPropagation();
+        this.categoria = evento.target.value;
+    }
+
+    _handleMudarTitulo(evento) {
         evento.stopPropagation();
         this.titulo = evento.target.value;
     }
 
-    _handleMudarTexto(evento){
+    _handleMudarTexto(evento) {
         evento.stopPropagation();
         this.texto = evento.target.value;
     }
 
-    _criarNota(evento){
+    _criarNota(evento) {
         evento.preventDefault();
         evento.stopPropagation();
-        this.props.submitNota(this.titulo, this.texto);
+        this.props.submitNota(this.categoria, this.titulo, this.texto);
     }
 
     render() {
         return (
-            <form 
-            className="form-cadastro"
-            onSubmit={this._criarNota.bind(this)}
+            <form
+                className="form-cadastro"
+                onSubmit={this._criarNota.bind(this)}
             >
+                <select
+                    className="form-cadastro_categorias"
+                    name="cat"
+                    onChange={this._handleMudarCategoria.bind(this)}
+                >
+                    {
+                        this.props.categorias.map((categoria, index) => {
+                            return <option key={index} value={categoria}>{categoria}</option>
+                        })
+                    }
+                </select>
                 <input
                     type="text"
                     placeholder="Título"

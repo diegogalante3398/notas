@@ -15,10 +15,11 @@ class App extends Component {
     };
   }
 
-  criarNota(titulo, texto) {
-    let dados = { titulo, texto };
+  criarNota(categoria, titulo, texto) {
+    let dados = { categoria, titulo, texto };
     let novoArrayNotas = [...this.state.notas, dados];
     let novoEstado = {
+      ...this.state,
       notas: novoArrayNotas
     }
     this.setState(novoEstado);
@@ -32,15 +33,32 @@ class App extends Component {
     });
   }
 
+  criarCategoria(novaCategoria) {
+    let arrayCategorias = [...this.state.categorias, novaCategoria];
+    let novoEstado = {
+      ...this.state,
+      categorias: arrayCategorias
+    }
+    this.setState(novoEstado);
+  }
+
   render() {
     return (
       <section className="conteudo">
-        <Formulario submitNota={this.criarNota.bind(this)} />
+        <Formulario
+          categorias={this.state.categorias}
+          submitNota={this.criarNota.bind(this)}
+        />
+
         <div className="conteudo-lista">
-          <ListaCategorias />
+          <ListaCategorias
+            criarCategoria={this.criarCategoria.bind(this)}
+            categorias={this.state.categorias}
+          />
+
           <ListaDeNotas
             deletarNota={this.deletarNota.bind(this)}
-            listarNota={this.state.notas}
+            notas={this.state.notas}
           />
         </div>
       </section>
